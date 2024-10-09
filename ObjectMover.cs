@@ -1,29 +1,37 @@
+// ObjectMover.cs
+// AUTOR: Javier Garcia Santana
+// FECHA: 08/10/2024
+// EMAIL: alu0101391663@ull.edu.es
+// VERSION: 1.0
+// ASIGNATURA: Interfaces Inteligentes
+// PRÁCTICA Nº: 2
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectMover : MonoBehaviour
 {
-  // Referencia al objeto que se va a mover (puede ser un cubo, esfera, etc.)
-  public GameObject objectToMove;
+  // Object to move reference
+  public GameObject object_to_move;
 
-  // Tres vectores que representan las posiciones de desplazamiento relativas
-  public Vector3 positionOffset1;
-  public Vector3 positionOffset2;
-  public Vector3 positionOffset3;
+  // Three vectors representing the relative positions given by user
+  public Vector3 relative_pos_1;
+  public Vector3 relative_pos_2;
+  public Vector3 relative_pos_3;
 
-  // Almacena la posición original del objeto
-  private Vector3 originalPosition;
+  // Object's original position
+  private Vector3 original_pos;
 
-  // Variable para llevar un control de la posición actual
-  private int currentPositionIndex = 0;
+  // Variable to know at which relative position are we
+  private int current_pos_index = 0;
 
   void Start()
   {
-    // Guarda la posición original del objeto que se va a mover
-    if (objectToMove != null)
+    // Save subject's original position
+    if (object_to_move != null)
     {
-      originalPosition = objectToMove.transform.position;
+      original_pos = object_to_move.transform.position;
     }
     else
     {
@@ -33,7 +41,7 @@ public class ObjectMover : MonoBehaviour
 
   void Update()
   {
-    // Verifica si se ha presionado la barra espaciadora
+    // Verify spacebar actuation
     if (Input.GetKeyDown(KeyCode.Space))
     {
       MoveObjectToNextPosition();
@@ -42,20 +50,20 @@ public class ObjectMover : MonoBehaviour
 
   void MoveObjectToNextPosition()
   {
-    // Cambia la posición del objeto a la siguiente posición
-    switch (currentPositionIndex)
+    // Change object to next position
+    switch (current_pos_index)
     {
       case 0:
-        objectToMove.transform.position = originalPosition + positionOffset1;
-        currentPositionIndex = 1;
+        object_to_move.transform.position = originalPosition + relative_pos_1;
+        current_pos_index = 1;
         break;
       case 1:
-        objectToMove.transform.position = originalPosition + positionOffset2;
-        currentPositionIndex = 2;
+        object_to_move.transform.position = originalPosition + relative_pos_2;
+        current_pos_index = 2;
         break;
       case 2:
-        objectToMove.transform.position = originalPosition + positionOffset3;
-        currentPositionIndex = 0; // Vuelve al inicio
+        object_to_move.transform.position = originalPosition + relative_pos_3;
+        current_pos_index = 0; // Go back to the start position
         break;
     }
   }
